@@ -4,15 +4,15 @@ import { UpdateBookDto } from './dto/update-book.dto';
 export declare class BooksService {
     private readonly prisma;
     constructor(prisma: PrismaService);
-    create(dto: CreateBookDto): import("@prisma/client").Prisma.Prisma__BookClient<{
+    create(dto: CreateBookDto): import(".prisma/client").Prisma.Prisma__BookClient<{
         id: number;
         createdAt: Date;
         updatedAt: Date;
         title: string;
         author: string;
         year: number;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<{
+    }, never, import("@prisma/client/runtime/library").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
+    findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
         createdAt: Date;
         updatedAt: Date;

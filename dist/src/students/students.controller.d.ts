@@ -12,7 +12,7 @@ export declare class StudentsController {
         createdAt: Date;
         updatedAt: Date;
     }[]>;
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<{
+    findAll(): import(".prisma/client").Prisma.PrismaPromise<{
         id: number;
         nis: string;
         name: string;
@@ -32,7 +32,7 @@ export declare class StudentsController {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    create(dto: any): import("@prisma/client").Prisma.Prisma__StudentClient<{
+    create(dto: any): import(".prisma/client").Prisma.Prisma__StudentClient<{
         id: number;
         nis: string;
         name: string;
@@ -41,7 +41,7 @@ export declare class StudentsController {
         jurusan: string;
         createdAt: Date;
         updatedAt: Date;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
+    }, never, import("@prisma/client/runtime/library").DefaultArgs, import(".prisma/client").Prisma.PrismaClientOptions>;
     update(id: string, dto: any): Promise<{
         id: number;
         nis: string;
