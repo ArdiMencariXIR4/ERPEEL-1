@@ -5,6 +5,7 @@ import { BooksModule } from './book/book.module';
 import { BorrowModule } from './borrow/borrow.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { SeedModule } from './seed/seed.module';
 
 ConfigModule.forRoot({
   isGlobal: true,
@@ -14,8 +15,7 @@ ConfigModule.forRoot({
       : '.env',
 })
 @Module({
-  imports: [PrismaModule, StudentsModule, BooksModule, BorrowModule, AuthModule],
-  
+  imports: [PrismaModule, StudentsModule, BooksModule, BorrowModule, AuthModule, SeedModule],
 })
 
 export class AppModule {}
