@@ -14,6 +14,7 @@ const book_module_1 = require("./book/book.module");
 const borrow_module_1 = require("./borrow/borrow.module");
 const auth_module_1 = require("./auth/auth.module");
 const config_1 = require("@nestjs/config");
+const seed_module_1 = require("./seed/seed.module");
 config_1.ConfigModule.forRoot({
     isGlobal: true,
     envFilePath: process.env.NODE_ENV === 'production'
@@ -25,7 +26,7 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule, students_module_1.StudentsModule, book_module_1.BooksModule, borrow_module_1.BorrowModule, auth_module_1.AuthModule],
+        imports: [prisma_module_1.PrismaModule, students_module_1.StudentsModule, book_module_1.BooksModule, borrow_module_1.BorrowModule, auth_module_1.AuthModule, seed_module_1.SeedModule],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

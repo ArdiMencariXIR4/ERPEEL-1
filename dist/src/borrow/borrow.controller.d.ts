@@ -5,18 +5,18 @@ export declare class BorrowController {
     private readonly borrowService;
     constructor(borrowService: BorrowService);
     create(dto: CreateBorrowDto): Promise<{
-        borrowDate: Date;
-        returnDate: Date | null;
         id_borrow: number;
         studentId: number;
         bookId: number;
+        borrowDate: Date;
+        returnDate: Date | null;
     }>;
     update(id: string, dto: UpdateBorrowDto): Promise<{
-        borrowDate: Date;
-        returnDate: Date | null;
         id_borrow: number;
         studentId: number;
         bookId: number;
+        borrowDate: Date;
+        returnDate: Date | null;
     }>;
     findAll(): import(".prisma/client").Prisma.PrismaPromise<({
         student: {
@@ -38,11 +38,11 @@ export declare class BorrowController {
             year: number;
         };
     } & {
-        borrowDate: Date;
-        returnDate: Date | null;
         id_borrow: number;
         studentId: number;
         bookId: number;
+        borrowDate: Date;
+        returnDate: Date | null;
     })[]>;
     filter(id?: string, date?: string): Promise<({
         student: {
@@ -64,10 +64,10 @@ export declare class BorrowController {
             year: number;
         };
     } & {
-        borrowDate: Date;
-        returnDate: Date | null;
         id_borrow: number;
         studentId: number;
         bookId: number;
+        borrowDate: Date;
+        returnDate: Date | null;
     })[]>;
 }

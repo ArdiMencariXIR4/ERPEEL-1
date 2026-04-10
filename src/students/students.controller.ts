@@ -1,24 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Put,
-  Delete,
-  Query,
-  UseGuards,
-} from '@nestjs/common';
-
+import {Controller,Get,Post,Body,  Param,Put,  Delete,Query,  UseGuards,} from '@nestjs/common';
 import { StudentsService } from './students.service';
-
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/auth/roles.guard';
 import { Roles } from '../auth/auth/roles.decorator';
-
-
-
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags, ApiOperation } from '@nestjs/swagger'; // 👈 add ApiTags
+import { CreateStudentDto } from './dto/create-student.dto'; // 👈 import DTOs
+import { UpdateStudentDto } from './dto/update-student.dto';
 
 @ApiBearerAuth('JWT-auth')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -50,18 +37,23 @@ export class StudentsController {
   // ❗ Only ADMIN can modify students
   @Roles('ADMIN')
   @Post()
-  create(@Body() dto: any) {
+  @ApiOperation({ summary: 'Create a new student (ADMIN only)' }) // 👈 add this
+  create(@Body() dto: CreateStudentDto) {
     return this.studentsService.create(dto);
   }
+  
 
   @Roles('ADMIN')
   @Put(':id')
-  update(@Param('id') id: string, @Body() dto: any) {
+  @ApiOperation({ summary: 'Update a student (ADMIN only)' }) // 👈 add this
+  update(@Param('id') id: string, @Body() dto: UpdateStudentDto) {
     return this.studentsService.update(Number(id), dto);
   }
+  
 
   @Roles('ADMIN')
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a student (ADMIN only)' }) // 👈 add this
   remove(@Param('id') id: string) {
     return this.studentsService.remove(Number(id));
   }
