@@ -12,13 +12,11 @@ export class AuthService {
   ) {}
 
   async login(username: string, password: string) {
-    // Only admin/admin123 works
-    if (username !== 'admin' || password !== 'admin123') {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
     const user = await this.prisma.user.findUnique({ where: { username } });
-    if (!user) throw new UnauthorizedException('User not found in database');
+    if (!user) throw new UnauthorizedException('Invalid credentials');
+
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) throw new UnauthorizedException('Invalid credentials');
 
     return {
       access_token: this.jwt.sign({
@@ -29,13 +27,11 @@ export class AuthService {
   }
 
   async register(dto: RegisterDto) {
-    // Check if username already exists
     const existing = await this.prisma.user.findUnique({
       where: { username: dto.username },
     });
     if (existing) throw new ConflictException('Username already taken');
 
-    // Hash password
     const hashed = await bcrypt.hash(dto.password, 10);
 
     const user = await this.prisma.user.create({
