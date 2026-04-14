@@ -16,7 +16,7 @@ import {ApiTags, ApiOperation, ApiBearerAuth} from '@nestjs/swagger';
 import { BooksService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { OptionalJwtGuard } from 'src/auth/auth/optional-jwt.guard';
+import { OptionalJwtGuard } from '../auth/auth/optional-jwt.guard';
 
 
 

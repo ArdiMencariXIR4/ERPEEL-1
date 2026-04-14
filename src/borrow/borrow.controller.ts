@@ -16,7 +16,7 @@ import { CreateBorrowDto } from './dto/create-borrow.dto';
 import { UpdateBorrowDto } from './dto/update-borrow.dto';
 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { OptionalJwtGuard } from 'src/auth/auth/optional-jwt.guard';
+import { OptionalJwtGuard } from '../auth/auth/optional-jwt.guard';
 
 @ApiTags('Borrow')
 @ApiBearerAuth('JWT-auth')

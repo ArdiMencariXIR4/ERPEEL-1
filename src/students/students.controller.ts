@@ -5,7 +5,7 @@ import { Roles } from '../auth/auth/roles.decorator';
 import { ApiBearerAuth, ApiTags, ApiOperation } from '@nestjs/swagger'; // 👈 add ApiTags
 import { CreateStudentDto } from './dto/create-student.dto'; // 👈 import DTOs
 import { UpdateStudentDto } from './dto/update-student.dto';
-import { OptionalJwtGuard } from 'src/auth/auth/optional-jwt.guard';
+import { OptionalJwtGuard } from '../auth/auth/optional-jwt.guard';
 
 @ApiBearerAuth('JWT-auth')
 @UseGuards(OptionalJwtGuard, RolesGuard)
