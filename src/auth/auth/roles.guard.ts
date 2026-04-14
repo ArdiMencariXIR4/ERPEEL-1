@@ -1,16 +1,14 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-// Routes STUDENT is allowed to access (no login needed)
-const STUDENT_PUBLIC_ROUTES = [
-  { method: 'GET', pathPatterns: [
-    /^\/books$/,
-    /^\/books\/title\/.+$/,
-    /^\/books\/filter$/,
-    /^\/books\/[^/]+$/,
-    /^\/borrow$/,
-    /^\/borrow\/filter$/,
-  ]},
+const PUBLIC_GET_ROUTES = [
+  /^\/books$/,
+  /^\/books\/title\/.+$/,
+  /^\/books\/filter$/,
+  /^\/books\/[^/]+$/,
+  /^\/borrow$/,
+  /^\/borrow\/filter$/,
+  /^\/students$/,        // 👈 added
 ];
 
 @Injectable()
@@ -25,13 +23,17 @@ export class RolesGuard implements CanActivate {
 
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
 
-    // No @Roles() decorator = any logged in user can access
+    // Allow unauthenticated GET requests to public routes
+    if (!user && method === 'GET') {
+      return PUBLIC_GET_ROUTES.some(pattern => pattern.test(path));
+    }
+
     if (!roles) {
       if (!user) return false;
 
-      // Block STUDENT from non-whitelisted routes
+      // STUDENT role restriction
       if (user.role === 'STUDENT') {
-        return STUDENT_PUBLIC_ROUTES[0].pathPatterns.some(pattern =>
+        return PUBLIC_GET_ROUTES.some(pattern =>
           method === 'GET' && pattern.test(path),
         );
       }
@@ -40,8 +42,6 @@ export class RolesGuard implements CanActivate {
     }
 
     if (!user || !user.role) return false;
-
-    // Block STUDENT from role-restricted routes entirely
     if (user.role === 'STUDENT') return false;
 
     return roles.includes(user.role);

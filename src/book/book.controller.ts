@@ -9,7 +9,6 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/auth/roles.guard';
 import { Roles } from '../auth/auth/roles.decorator';
 import {ApiTags, ApiOperation, ApiBearerAuth} from '@nestjs/swagger';
@@ -17,12 +16,13 @@ import {ApiTags, ApiOperation, ApiBearerAuth} from '@nestjs/swagger';
 import { BooksService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { OptionalJwtGuard } from 'src/auth/auth/optional-jwt.guard';
 
 
 
 @ApiTags('Books')
 @ApiBearerAuth('JWT-auth')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(OptionalJwtGuard, RolesGuard)
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}

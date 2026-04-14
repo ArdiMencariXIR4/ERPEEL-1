@@ -1,14 +1,14 @@
 import {Controller,Get,Post,Body,  Param,Put,  Delete,Query,  UseGuards,} from '@nestjs/common';
 import { StudentsService } from './students.service';
-import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/auth/roles.guard';
 import { Roles } from '../auth/auth/roles.decorator';
 import { ApiBearerAuth, ApiTags, ApiOperation } from '@nestjs/swagger'; // 👈 add ApiTags
 import { CreateStudentDto } from './dto/create-student.dto'; // 👈 import DTOs
 import { UpdateStudentDto } from './dto/update-student.dto';
+import { OptionalJwtGuard } from 'src/auth/auth/optional-jwt.guard';
 
 @ApiBearerAuth('JWT-auth')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(OptionalJwtGuard, RolesGuard)
 @Controller('students')
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}

@@ -8,7 +8,6 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../auth/auth/roles.guard';
 import { Roles } from '../auth/auth/roles.decorator';
 
@@ -17,10 +16,11 @@ import { CreateBorrowDto } from './dto/create-borrow.dto';
 import { UpdateBorrowDto } from './dto/update-borrow.dto';
 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { OptionalJwtGuard } from 'src/auth/auth/optional-jwt.guard';
 
 @ApiTags('Borrow')
 @ApiBearerAuth('JWT-auth')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
+@UseGuards(OptionalJwtGuard, RolesGuard)
 @Controller('borrow')
 export class BorrowController {
   constructor(private readonly borrowService: BorrowService) {}
